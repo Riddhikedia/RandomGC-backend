@@ -3,13 +3,14 @@ const app = express();
 const http = require("http");
 const cors = require("cors");
 const { Server } = require("socket.io");
+const FRONTEND_URL=process.env.FRONTEND_URL || "http://localhost:3000";
 app.use(cors());
 
 const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://random-gc-frontend.vercel.app/",
+    origin: FRONTEND_URL,
     methods: ["GET", "POST"],
   },
 });
@@ -31,6 +32,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(process.env.PORT || 3001, () => {
+server.listen(3001, () => {
   console.log("SERVER RUNNING");
 });
